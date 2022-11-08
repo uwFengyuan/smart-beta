@@ -39,38 +39,14 @@ def reduce_mem_usage(df, verbose=True):
     print('Decreased by {:.1f}%'.format(100 * (start_mem - end_mem) / start_mem))
     return df
 
-"""
-import uqer
-from uqer import DataAPI   #优矿api
-client = uqer.Client(token='18266a7c0ac9f8cdbe00f9b2ecb65f42316a5f78d9cc22ebabcbd923593356e4')
-all_data = DataAPI.IdxConsGet(secID=u"",ticker=u"000852",isNew=u"",intoDate=u"",field=u"",pandas="1")
-all_data['consTickerSymbol'] = all_data['consTickerSymbol'].astype(int)
-tickers_1000 = all_data.consTickerSymbol.sort_values().unique()
-print(tickers_1000.shape)
-
-print('load openclose')
-openclose = pd.read_csv('labels/openclose_pct1.csv')
-print(openclose)
-openclose = openclose [openclose.ticker.apply(lambda x: x in tickers_1000)]
-openclose['openclose_pct1_rank'] = openclose.groupby('tradeDate')['openclose_pct1'].rank(pct = True)
-openclose = openclose.drop(columns='openclose_pct1')
-print(openclose)
-
-df_1000 = pd.read_csv('pct1_cal/alter_idst_alphas_066_labels_raw_1000.csv')
-df_1000 = df_1000.drop(columns='openclose_pct1_rank')
-
-df_1000 = df_1000.merge(openclose, on=['ticker', 'tradeDate'], how='left')
-print(df_1000)
-df_1000.to_csv('pct1_cal/alter_idst_alphas_066_labels_raw_1000.csv')
-"""
-df = pd.read_csv('pct1_cal/alter_idst_alphas_066_labels_raw2.csv')
+df = pd.read_csv('/data/liufengyuan/pct1_cal/alter_idst_alphas_066_labels_raw2.csv')
 print(df)
 
 print('get column lists')
 f_index = ['ticker', 'tradeDate']
-f_industry = pickle.load(open("pct1_cal/f_industry", "rb"))
-f_x = pickle.load(open("pct1_cal/f_x_066", "rb"))
-label_list = ['openclose_pct1'] #['PCT5_rank', 'PCT2_rank', 'openclose_pct1_rank', 'askbid_pct1_rank']
+f_industry = pickle.load(open("/data/liufengyuan/pct1_cal/f_industry", "rb"))
+f_x = pickle.load(open("/data/liufengyuan/pct1_cal/f_x_066", "rb"))
+label_list = ['PCT5_rank'] #['PCT5_rank', 'PCT2_rank', 'openclose_pct1_rank', 'askbid_pct1_rank']
 
 # %% a list of classes
 ## exclude extreme values
@@ -200,4 +176,4 @@ df1 = reduce_mem_usage(df1)
 print('store data')
 # df1.to_csv('train_test/modified_alter_alphas_036_222_labels.csv', index = False)
 # df1.to_csv('uqer_cal/modified_uqer_labels.csv', index = False)
-df1.to_csv('pct1_cal/modified_alter_alphas_066_labels2.csv', index = False)
+#df1.to_csv('/data/liufengyuan/pct1_cal/modified_alter_alphas_066_labels2.csv', index = False)

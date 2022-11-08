@@ -11,17 +11,17 @@ import time
 from sklearn.linear_model import Ridge, LinearRegression
 ####========需要修改的全局参数========####
 print('========LOADING DATA========')
-df1 = pd.read_csv('pct1_cal/modified_alter_alphas_066_labels.csv')
-#df1 = pd.read_csv('pct5_cal/modified_alter_alphas_036_222_labels.csv')
+#df1 = pd.read_csv('/data/liufengyuan/pct1_cal/modified_alter_alphas_066_labels.csv')
+df1 = pd.read_csv('/data/liufengyuan/pct5_cal/modified_alter_alphas_036_222_labels.csv')
 print(df1)
 print('========COMPLETE LOADING DATA========')
 label_list = ['PCT5_rank', 'PCT2_rank', 'openclose_pct1_rank', 'askbid_pct1_rank']
-f_y = label_list[2]
-f_x = pickle.load(open("pct1_cal/f_x_066", "rb"))
-#f_x = pickle.load(open('pct5_cal/f_x_036_222', 'rb'))
+f_y = label_list[0]
+#f_x = pickle.load(open("/data/liufengyuan/pct1_cal/f_x_066", "rb"))
+f_x = pickle.load(open('/data/liufengyuan/pct5_cal/f_x_036_222', 'rb'))
 #print(f_x)
-data_source = 'full_Alter_066_full'
-file_location = 'pct1_cal'
+data_source = 'full_Alter_036_222'
+file_location = 'pct5_cal'
 file_type = 'full'
 model_list = ['LinearRegression', 'RidgeR', 'DecisionTreeR', 'XGBoostR', 'LGBMRegressor']
 model_name = model_list[4]
@@ -170,7 +170,7 @@ df_result_all = df_result_all.sort_values(by=['ticker', 'tradeDate']).reset_inde
 IC = total_IC / num_epoch
 today = (datetime.datetime.now()).strftime("%Y-%m-%d:%H:%M:%S")
 #pickle.dump(best_parameters_list, open('{}/{}/best_parameters_list_{}_{}'.format(file_location, file_type, today, IC), 'wb'))
-df_result_all.to_csv('{}/{}/{}{}_{}.csv'.format(file_location, file_type, result_name, today, round(IC, 4)), index=False)
+df_result_all.to_csv('/data/liufengyuan/{}/{}/{}{}_{}.csv'.format(file_location, file_type, result_name, today, round(IC, 4)), index=False)
 print('======== COMPLETED {} {} ========'.format(model_name, IC))
 
 #print('PARALLEL')

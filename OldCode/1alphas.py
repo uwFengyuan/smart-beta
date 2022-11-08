@@ -1,16 +1,15 @@
 import glob
 import pandas as pd
-from joblib import Parallel, delayed
-import time
 
-path1 = 'raw_data/alphas_036'
+path1 = '/data/liufengyuan/raw_data/alphas_036'
 filenames = glob.glob(path1 + '/*.csv')
+#print(filenames)
 result = pd.DataFrame()
 for file in filenames[:5]:
     i = 1
-    dic_name = file[9:19]
+    dic_name = file[27:37]
     print(dic_name)
-    name = dic_name[7:] + '_' +file[20:-4]
+    name = dic_name[7:] + '_' +file[38:-4]
     print(name)
     alpha = pd.read_csv(file)
     alpha = alpha.loc[alpha['date'] >= '2017-01-03']
